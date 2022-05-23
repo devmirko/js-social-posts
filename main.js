@@ -57,9 +57,29 @@ const posts = [
 ];
 
 const container = document.getElementById('container');
+let likeButton = document.querySelectorAll('js-like-button');
+
+
+
 
 
 postsPrinter();
+debugger;
+likeButton.forEach((button,index) => {
+    button.addEventListner("click",
+    function () {
+        button.classList.toogle(".like-button--liked");
+        if (button.classList.contains(".like-button--liked")) {
+            posts[index].likes++;
+        } else {
+            posts[index].likes--;
+        }
+        let likesCounter = document.getElementById("like-counter-" + posts[index].id);
+        likesCounter.innerText = posts[index].likes;
+    }
+    
+  )
+})
 
 function CreateHtml(post) {
     //header della card
@@ -112,13 +132,13 @@ function CreateHtml(post) {
          <div class="post__footer">
             <div class="likes js-likes">
                 <div class="likes__cta">
-                    <a class="like-button  js-like-button" href="#" data-postid="1">
+                    <a class="like-button  js-like-button" href="#" data-postid="${post.id}">
                         <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                         <span class="like-button__label">Mi Piace</span>
                     </a>
                 </div>
             <div class="likes__counter">
-            Piace a <b id="like-counter-1" class="js-likes-counter">80</b> persone
+            Piace a <b id="like-counter-${post.id}" class="js-likes-counter">${post.likes}</b> persone
         </div>
     </div> 
 </div>          
@@ -133,4 +153,3 @@ function postsPrinter() {
     }
 }
 
-//
